@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MdlRailsTest</title>
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title"><%= controller_name%></span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <%= link_to "Posts", posts_path, class:"mdl-navigation__link" %>
+        <%= link_to "Users", users_path, class:"mdl-navigation__link" %>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title"><%= controller_name%></span>
+    <nav class="mdl-navigation">
+      <%= link_to "Posts", posts_path, class:"mdl-navigation__link" %>
+      <%= link_to "Users", users_path, class:"mdl-navigation__link" %>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div class="mdl-grid">
+
+
+          <%= yield %><!-- Your content goes here -->
+        <% if controller_name == "posts" %>
+            <%= link_to new_post_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect add"  do %>
+                <i class="material-icons">add</i>
+            <% end %>
+        <% elsif controller_name == "users" %>
+            <%= link_to new_user_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect add"  do %>
+                <i class="material-icons">add</i>
+            <% end %>
+        <% end %>
+     </div>
+
+
+    </div>
+  </main>
+
+</div>
+
+
+
+
+</body>
+
+
+</html>

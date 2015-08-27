@@ -1,0 +1,35 @@
+<div class="mdl-cell mdl-cell--6-col">
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :user_id, class: "mdl-textfield__label" %><br>
+    <%= f.number_field :user_id, class: "mdl-textfield__input" %>
+  </div>
+      <br>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :content, class: "mdl-textfield__label" %><br>
+    <%= f.text_area :content, class:"mdl-textfield__input", rows:"4" %>
+  </div>
+    <br>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :picture, class: "mdl-textfield__label" %><br>
+    <%= f.file_field :picture, class: "mdl-textfield__input" %>
+  </div>
+    <br>
+
+  <div class="">
+    <%= f.submit class: "mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" %>
+    <%= link_to 'Back', posts_path, class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"  %>
+  </div>
+<% end %>
+</div>
