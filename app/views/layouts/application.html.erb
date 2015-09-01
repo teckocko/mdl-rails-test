@@ -37,27 +37,83 @@
     <div class="page-content">
       <div class="mdl-grid">
 
+        <%= yield %><!-- Your content goes here -->
 
-          <%= yield %><!-- Your content goes here -->
-        <% if controller_name == "posts" %>
-            <%= link_to new_post_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect add"  do %>
+        <% if controller_name == "posts" %> <!--floating action button logic-->
+
+            <div id="fab_ctn" class="mdl-button--fab_flinger-container">
+              <button id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                 <i class="material-icons">add</i>
-            <% end %>
-        <% elsif controller_name == "users" %>
-            <%= link_to new_user_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect add"  do %>
+              </button>
+              <div class="mdl-button--fab_flinger-options">
+
+                <% if action_name == "index" %>
+                    <%= link_to new_post_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                        <i class="material-icons">add</i>
+                    <% end %>
+                <% elsif action_name == "show" %>
+                    <%= link_to edit_post_path(@post), class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                        <i class="material-icons">edit</i>
+                    <% end %>
+                    <%= link_to @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                        <i class="material-icons">delete</i>
+                    <% end %>
+                <% end %>
+
+              </div>
+            </div>
+
+        <% else %>
+
+            <div id="fab_ctn" class="mdl-button--fab_flinger-container">
+              <button id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                 <i class="material-icons">add</i>
-            <% end %>
+              </button>
+              <div class="mdl-button--fab_flinger-options">
+
+                <% if action_name == "index" %>
+                    <%= link_to new_user_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                        <i class="material-icons">add</i>
+                    <% end %>
+                <% elsif action_name == "show" %>
+                    <%= link_to edit_user_path(@user), class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                        <i class="material-icons">edit</i>
+                    <% end %>
+                    <%= link_to @user, method: :delete, data: { confirm: 'Are you sure?' }, class: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                        <i class="material-icons">delete</i>
+                    <% end %>
+                <% end %>
+
+              </div>
+            </div>
         <% end %>
-     </div>
+        <script>
+            (function () {
+                var VISIBLE_CLASS = 'is-showing-options',
+                        fab_btn  = document.getElementById('fab_btn'),
+                        fab_ctn  = document.getElementById('fab_ctn'),
+                        showOpts = function(e) {
+                            var processClick = function (evt) {
+                                if (e !== evt) {
+                                    fab_ctn.classList.remove(VISIBLE_CLASS);
+                                    fab_ctn.IS_SHOWING = false;
+                                    document.removeEventListener('click', processClick);
+                                }
+                            };
+                            if (!fab_ctn.IS_SHOWING) {
+                                fab_ctn.IS_SHOWING = true;
+                                fab_ctn.classList.add(VISIBLE_CLASS);
+                                document.addEventListener('click', processClick);
+                            }
+                        };
+                fab_btn.addEventListener('click', showOpts);
+            }.call(this));
+        </script>
+        </div>
+      </div>
 
-
-    </div>
   </main>
-
 </div>
-
-
-
 
 </body>
 
