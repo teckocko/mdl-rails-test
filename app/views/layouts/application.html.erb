@@ -39,8 +39,6 @@
 
         <%= yield %><!-- Your content goes here -->
 
-        <% if controller_name == "posts" %> <!--floating action button logic-->
-
             <div id="fab_ctn" class="mdl-button--fab_flinger-container">
               <button id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                 <i class="material-icons">add</i>
@@ -48,14 +46,14 @@
               <div class="mdl-button--fab_flinger-options">
 
                 <% if action_name == "index" %>
-                    <%= link_to new_post_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                    <%= link_to "/#{controller_name}/new", class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
                         <i class="material-icons">add</i>
                     <% end %>
                 <% elsif action_name == "show" %>
-                    <%= link_to edit_post_path(@post), class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                    <%= link_to "#{params[:id]}/edit", class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
                         <i class="material-icons">edit</i>
                     <% end %>
-                    <%= link_to @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
+                    <%= link_to "/#{controller_name}/#{params[:id]}", method: :delete, data: { confirm: 'Are you sure?' }, class: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
                         <i class="material-icons">delete</i>
                     <% end %>
                 <% end %>
@@ -63,30 +61,6 @@
               </div>
             </div>
 
-        <% else %>
-
-            <div id="fab_ctn" class="mdl-button--fab_flinger-container">
-              <button id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                <i class="material-icons">add</i>
-              </button>
-              <div class="mdl-button--fab_flinger-options">
-
-                <% if action_name == "index" %>
-                    <%= link_to new_user_path, class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
-                        <i class="material-icons">add</i>
-                    <% end %>
-                <% elsif action_name == "show" %>
-                    <%= link_to edit_user_path(@user), class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
-                        <i class="material-icons">edit</i>
-                    <% end %>
-                    <%= link_to @user, method: :delete, data: { confirm: 'Are you sure?' }, class: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"  do %>
-                        <i class="material-icons">delete</i>
-                    <% end %>
-                <% end %>
-
-              </div>
-            </div>
-        <% end %>
         <script>
             (function () {
                 var VISIBLE_CLASS = 'is-showing-options',
